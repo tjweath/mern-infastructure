@@ -1,10 +1,24 @@
-import SignUpForm from '../../components/SignUpForm/SignUpForm';
+import { useState } from "react"
+import SignUpForm from "../../components/SignUpForm/SignUpForm"
+import LoginForm from "../../components/LoginForm/LoginForm"
 
-export default function AuthPage({ setUser }) {
-  return (
-    <main>
-      <h1>AuthPage</h1>
-      <SignUpForm setUser={setUser} />
-    </main>
-  );
+export default function AuthPage({setUser}) {
+    const [showForm, setShowForm] = useState(true)
+
+    function handleToggleForm() {
+        setShowForm(!showForm)
+    }
+
+    return (
+        <main>
+            <h1>AuthPage</h1>
+            {showForm ? <SignUpForm setUser={setUser} /> : <LoginForm setUser={setUser} />}
+            <p>
+                {showForm? "Already have an account? ": "Don't have an account? "}
+                <button onClick={handleToggleForm}>
+                    {showForm ? 'Login' : 'Sign Up'}
+                </button>
+            </p>
+        </main>
+    )
 }
